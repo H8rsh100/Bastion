@@ -95,7 +95,9 @@ This isn't four toy projects stapled together — each component exists because 
 | Tokens/sec | — | — | — |
 | Quality score | — | — | — |
 
-> Benchmark results will be populated after running the evaluation harness. See `docs/benchmark_results.md` for detailed analysis.
+> Benchmark results will be populated after running `python -m backend.llm.benchmark` with
+> GGUF model files. See [`docs/benchmark_results.md`](docs/benchmark_results.md) for
+> detailed methodology, analysis, and how to reproduce.
 
 ---
 
