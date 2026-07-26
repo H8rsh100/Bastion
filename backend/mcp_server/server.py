@@ -78,14 +78,11 @@ async def lifespan(server: FastMCP):
 
 # ── Server ───────────────────────────────────────────────────────────────
 
+# Security intelligence server: searches CVEs, explains vulns, scans logs for IOCs, assesses dependency risk.
 mcp_server = FastMCP(
     "Bastion",
-    description=(
-        "Security intelligence server. Searches CVE databases, explains "
-        "vulnerabilities, scans logs for indicators of compromise, and "
-        "assesses dependency risk — all running fully offline with a "
-        "quantized LLM and RAG pipeline."
-    ),
+    host=API_HOST,
+    port=API_PORT,
     lifespan=lifespan,
 )
 
@@ -211,6 +208,9 @@ if __name__ == "__main__":
     logger.info(f"Starting Bastion MCP server ({args.transport} transport)")
 
     if args.transport == "sse":
-        mcp_server.run(transport="sse", host=args.host, port=args.port)
+        if hasattr(mcp_server, "settings"):
+            mcp_server.settings.host = args.host
+            mcp_server.settings.port = args.port
+        mcp_server.run(transport="sse")
     else:
         mcp_server.run(transport="stdio")
