@@ -144,6 +144,32 @@ def explain_vulnerability(cve_id: str) -> dict:
     return result
 
 
+@mcp_server.tool()
+def scan_log_for_iocs(log_text: str) -> dict:
+    """
+    Scan log data for indicators of compromise (IOCs).
+
+    Analyzes the provided log text using a combination of LLM analysis
+    and pattern matching to identify suspicious IPs, domains, file hashes,
+    unusual ports, and known attack patterns. Cross-references findings
+    against the CVE knowledge base.
+
+    Args:
+        log_text: Raw log text to analyze (paste log lines directly)
+
+    Returns:
+        Dict with: answer (IOC analysis with threat level assessment),
+        sources (related CVEs if found), retrieval_count, and llm_metrics.
+    """
+    ctx: BastionContext = mcp_server.get_context().request_context.lifespan_context
+
+    if not ctx.ready or ctx.synthesizer is None:
+        return {"error": True, "answer": "Bastion is not ready. Check server logs."}
+
+    result = ctx.synthesizer.scan_log_for_iocs(log_text)
+    return result
+
+
 # ── CLI ──────────────────────────────────────────────────────────────────
 
 if __name__ == "__main__":
