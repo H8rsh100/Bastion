@@ -90,6 +90,34 @@ mcp_server = FastMCP(
 )
 
 
+# ── Tools ────────────────────────────────────────────────────────────────
+
+@mcp_server.tool()
+def search_cve(query: str, top_k: int = 5) -> dict:
+    """
+    Search the CVE knowledge base using natural language.
+
+    Performs a RAG-powered semantic search over ingested CVE data,
+    retrieves the most relevant vulnerabilities, and synthesizes
+    a summary using the local quantized LLM.
+
+    Args:
+        query: Natural language search query (e.g. "buffer overflow in OpenSSL")
+        top_k: Number of CVE results to retrieve for context (default: 5)
+
+    Returns:
+        Dict with: answer (LLM summary), sources (CVE IDs + scores),
+        retrieval_count, and llm_metrics.
+    """
+    ctx: BastionContext = mcp_server.get_context().request_context.lifespan_context
+
+    if not ctx.ready or ctx.synthesizer is None:
+        return {"error": True, "answer": "Bastion is not ready. Check server logs."}
+
+    result = ctx.synthesizer.search_cve(query, top_k=top_k)
+    return result
+
+
 # ── CLI ──────────────────────────────────────────────────────────────────
 
 if __name__ == "__main__":
