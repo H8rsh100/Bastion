@@ -25,5 +25,6 @@ pytest==8.3.0
 pytest-asyncio==0.23.0
 
 # Utilities
+psutil==6.0.0
 python-dotenv==1.0.1
 rich==13.7.0
