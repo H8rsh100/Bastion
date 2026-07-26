@@ -118,6 +118,32 @@ def search_cve(query: str, top_k: int = 5) -> dict:
     return result
 
 
+@mcp_server.tool()
+def explain_vulnerability(cve_id: str) -> dict:
+    """
+    Explain a specific CVE vulnerability in plain language.
+
+    Looks up the CVE by ID in the knowledge base, retrieves all
+    related context, and generates a developer-friendly explanation
+    covering: what it is, how it works, severity, affected products,
+    and recommended mitigations.
+
+    Args:
+        cve_id: The CVE identifier (e.g. "CVE-2024-1234")
+
+    Returns:
+        Dict with: answer (plain-language explanation), sources,
+        retrieval_count, and llm_metrics.
+    """
+    ctx: BastionContext = mcp_server.get_context().request_context.lifespan_context
+
+    if not ctx.ready or ctx.synthesizer is None:
+        return {"error": True, "answer": "Bastion is not ready. Check server logs."}
+
+    result = ctx.synthesizer.explain_vulnerability(cve_id)
+    return result
+
+
 # ── CLI ──────────────────────────────────────────────────────────────────
 
 if __name__ == "__main__":
