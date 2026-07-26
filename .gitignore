@@ -1,0 +1,55 @@
+# Python
+__pycache__/
+*.pyc
+*.pyo
+*.egg-info/
+dist/
+build/
+*.egg
+.eggs/
+
+# Virtual environments
+venv/
+.venv/
+env/
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# Environment
+.env
+.env.local
+
+# Node / Frontend
+node_modules/
+frontend/dist/
+frontend/build/
+
+# Models (large binary files)
+*.gguf
+models/
+
+# Qdrant local storage
+qdrant_storage/
+
+# Data caches (regeneratable)
+data/cve_cache/*.json
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Benchmark outputs
+docs/benchmark_results.json
+
+# Planning docs (not part of the built project)
+01_PROJECT_PLAN.md
+02_FRONTEND_DESIGN_BRIEF.md
+03_COMMIT_PLAN.md
+04_AGENT_BUILD_PROMPT.md
+bastion-repo-scaffold.zip
+repo-scaffold/
