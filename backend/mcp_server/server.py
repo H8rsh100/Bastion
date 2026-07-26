@@ -170,6 +170,33 @@ def scan_log_for_iocs(log_text: str) -> dict:
     return result
 
 
+@mcp_server.tool()
+def check_dependency_risk(package_query: str) -> dict:
+    """
+    Assess the security risk of a software dependency.
+
+    Cross-references the package name and version against the CVE
+    knowledge base to find known vulnerabilities. Provides a risk
+    assessment with specific CVE IDs, severity levels, and
+    recommended upgrade paths or mitigations.
+
+    Args:
+        package_query: Package name and version (e.g. "lodash 4.17.20"
+                       or "openssl 1.1.1k")
+
+    Returns:
+        Dict with: answer (risk assessment), sources (matching CVEs),
+        retrieval_count, and llm_metrics.
+    """
+    ctx: BastionContext = mcp_server.get_context().request_context.lifespan_context
+
+    if not ctx.ready or ctx.synthesizer is None:
+        return {"error": True, "answer": "Bastion is not ready. Check server logs."}
+
+    result = ctx.synthesizer.check_dependency_risk(package_query)
+    return result
+
+
 # ── CLI ──────────────────────────────────────────────────────────────────
 
 if __name__ == "__main__":
