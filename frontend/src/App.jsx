@@ -105,7 +105,7 @@ function App() {
               </p>
             </div>
             <div style={{ textAlign: 'center', padding: '20px 0', borderTop: '1px solid rgba(74, 102, 112, 0.2)' }}>
-              <span style={{ color: isProcessing ? 'var(--accent)' : 'var(--accent-secondary)', fontSize: '14px', fontFamily: 'var(--font-mono)', letter-spacing: '0.1em' }}>
+              <span style={{ color: isProcessing ? 'var(--accent)' : 'var(--accent-secondary)', fontSize: '14px', fontFamily: 'var(--font-mono)', letterSpacing: '0.1em' }}>
                 {isProcessing ? `[ GATE ${activeGate} ACTIVE ]` : '[ ALL GATES SECURE ]'}
               </span>
             </div>
