@@ -14,7 +14,7 @@ sentence-transformers==3.0.0
 llama-cpp-python==0.2.90
 
 # MCP
-mcp==1.0.0
+mcp>=1.27.0,<2
 
 # Ingestion
 httpx==0.27.0
