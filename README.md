@@ -10,7 +10,7 @@ A locally-deployed, quantized-LLM security intelligence server exposed as an **M
 
 ## Why This Architecture
 
-This isn't four toy projects stapled together — each component exists because the use case demands it:
+This isn't four toy projects stapled together - each component exists because the use case demands it:
 
 - **Quantization** — air-gapped/on-prem security environments can't call cloud APIs. Quantization is the only way this product could exist in a real SOC.
 - **RAG** — grounds the model in live threat intel (NVD/CVE feed) instead of hallucinating CVE details. A concrete, checkable use case.
@@ -149,4 +149,4 @@ python -m pytest backend/tests/ -v
 
 ## License
 
-MIT — see [LICENSE](LICENSE).
+MIT - see [LICENSE](LICENSE).
