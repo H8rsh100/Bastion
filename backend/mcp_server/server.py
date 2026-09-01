@@ -194,6 +194,20 @@ def check_dependency_risk(package_query: str) -> dict:
     return result
 
 
+@mcp_server.tool()
+def system_health_check() -> dict:
+    """
+    Check the health of the Bastion MCP server and its underlying components.
+    """
+    ctx = mcp_server.get_context().request_context.lifespan_context
+    return {
+        "status": "healthy" if ctx.ready else "degraded",
+        "components": {
+            "synthesizer_ready": ctx.synthesizer is not None
+        }
+    }
+
+
 # ── CLI ──────────────────────────────────────────────────────────────────
 
 if __name__ == "__main__":
