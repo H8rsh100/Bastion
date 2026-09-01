@@ -41,7 +41,16 @@ export default function ResultsPane({ result, error, isProcessing }) {
 
   return (
     <div className="pane results-pane">
-      <div className="pane-header">// INSPECTION READOUT: COMPLETE</div>
+      <div className="pane-header" style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+        <span>// INSPECTION READOUT: COMPLETE</span>
+        <button 
+          onClick={() => navigator.clipboard.writeText(result.answer || JSON.stringify(result, null, 2))}
+          style={{ fontSize: '10px', padding: '2px 6px', background: 'transparent' }}
+          title="Copy synthesized intelligence"
+        >
+          [COPY]
+        </button>
+      </div>
       <div className="log-output" style={{ overflowY: 'auto', flex: 1 }}>
         <div style={{ marginBottom: '16px', paddingBottom: '12px', borderBottom: '1px solid rgba(74, 102, 112, 0.3)' }}>
           <span style={{ color: 'var(--accent)', display: 'block', marginBottom: '8px', fontWeight: 'bold' }}>
