@@ -108,6 +108,13 @@ function App() {
               <span style={{ color: isProcessing ? 'var(--accent)' : 'var(--accent-secondary)', fontSize: '14px', fontFamily: 'var(--font-mono)', letterSpacing: '0.1em' }}>
                 {isProcessing ? `[ GATE ${activeGate} ACTIVE ]` : '[ ALL GATES SECURE ]'}
               </span>
+              {!isProcessing && hasScanned && (
+                <div style={{ marginTop: '16px' }}>
+                  <button onClick={() => { setHasScanned(false); setResult(null); setError(null); }} style={{ fontSize: '11px', padding: '4px 8px' }}>
+                    [RESET PIPELINE]
+                  </button>
+                </div>
+              )}
             </div>
           </div>
 
